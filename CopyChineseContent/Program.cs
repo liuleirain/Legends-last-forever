@@ -54,7 +54,7 @@ void DumpBuffs()
           chineseConverted["Id"] = chineseProp.Value.Value<int>();
           break;
         case "分组编号":
-          chineseConverted["Group"] = chineseProp.Value.Value<int>();
+          chineseConverted["GroupId"] = chineseProp.Value.Value<int>();
           break;
         case "Buff效果":
           chineseConverted["Effect"] = ConvertEffect(chineseProp.Value.Value<string>());
@@ -117,7 +117,7 @@ void DumpBuffs()
           chineseConverted["OnPlayerDiesRemove"] = chineseProp.Value.Value<bool>();
           break;
         case "绑定技能等级":
-          chineseConverted["BindingSkillLevel"] = chineseProp.Value.Value<bool>();
+          chineseConverted["BindingSkillLevel"] = chineseProp.Value.Value<int>();
           break;
         case "持续时间延长":
           chineseConverted["ExtendedDuration"] = chineseProp.Value.Value<bool>();
@@ -297,7 +297,7 @@ void DumpSkillsData()
           chineseConverted["ValidateLearnedSkills"] = chineseProp.Value.Value<int>();
           break;
         case "验证技能铭文":
-          chineseConverted["VerficationSkillInscription"] = chineseProp.Value.Value<bool>();
+          chineseConverted["VerficationSkillInscription"] = chineseProp.Value.Value<int>();
           break;
         case "验证目标类型":
           chineseConverted["VerifyTargetType"] = ConvertSpecifyTargetType(chineseProp.Value.Value<string>());
@@ -472,6 +472,113 @@ void DumpSkillInscriptions()
     var skillId = chineseConverted["SkillId"];
     var id = chineseConverted.ContainsKey("Id") ? (int)chineseConverted["Id"] : 0;
     var fileName = $"{skillId}-{id}-{name}.txt";
+
+    var mir3dOutputPath = Path.Combine(mir3DbFolder, fileName);
+
+    if (mir3dModel == null)
+    {
+      var content = JsonConvert.SerializeObject(chineseConverted, jsonOptions);
+      File.WriteAllText(mir3dOutputPath, content);
+    }
+  }
+}
+
+void DumpTrap()
+{
+  var chineseFolder = Path.Combine(chineseDbSystemPath, "技能数据", "陷阱数据");
+  var mir3DbFolder = Path.Combine(mir3dDbSystemPath, "Skills", "Trap");
+
+  var chineseFiles = Directory.GetFiles(chineseFolder, "*.txt", SearchOption.TopDirectoryOnly);
+  var mir3DbFiles = Directory.GetFiles(mir3DbFolder, "*.txt", SearchOption.TopDirectoryOnly);
+
+  var chineseModels = new List<JObject>();
+  var mir3DbModels = new List<JObject>();
+
+  foreach (var chineseFile in chineseFiles)
+  {
+    var content = File.ReadAllText(chineseFile);
+    chineseModels.Add((JObject)Newtonsoft.Json.JsonConvert.DeserializeObject(content, jsonOptions));
+  }
+
+  foreach (var mir3dFile in mir3DbFiles)
+  {
+    var content = File.ReadAllText(mir3dFile);
+    mir3DbModels.Add((JObject)Newtonsoft.Json.JsonConvert.DeserializeObject(content, jsonOptions));
+  }
+
+  foreach (var chineseModel in chineseModels)
+  {
+    var chineseConverted = new Dictionary<string, object>();
+
+    foreach (var chineseProp in chineseModel)
+    {
+      switch (chineseProp.Key)
+      {
+        case "陷阱名字":
+          chineseConverted["Name"] = chineseProp.Value.Value<string>();
+          break;
+        case "陷阱编号":
+          chineseConverted["Id"] = chineseProp.Value.Value<int>();
+          break;
+        case "分组编号":
+        case "陷阱分组编号":
+          chineseConverted["GroupId"] = chineseProp.Value.Value<int>();
+          break;
+        case "陷阱体型":
+          chineseConverted["Size"] = ConvertObjectSize(chineseProp.Value.Value<string>());
+          break;
+        case "绑定等级":
+          chineseConverted["BindingLevel"] = chineseProp.Value.Value<int>();
+          break;
+        case "陷阱持续时间":
+          chineseConverted["Duration"] = chineseProp.Value.Values<int>();
+          break;
+        case "持续时间延长":
+          chineseConverted["ExtendedDuration"] = chineseProp.Value.Values<bool>();
+          break;
+        case "技能等级延时":
+          chineseConverted["SkillLevelDelay"] = chineseProp.Value.Values<bool>();
+          break;
+        case "每级延长时间":
+          chineseConverted["ExtendedTimePerLevel"] = chineseProp.Value.Values<int>();
+          break;
+        case "绑定角色属性":
+          chineseConverted["BoundPlayerStat"] = chineseProp.Value.Values<string>();
+          break;
+        case "限制移动次数":
+          chineseConverted["LimitMoveSteps"] = chineseProp.Value.Values<int>();
+          break;
+        case "当前方向移动":
+          chineseConverted["MoveInCurrentDirection"] = chineseProp.Value.Values<bool>();
+          break;
+        case "被动触发技能":
+          chineseConverted["PassiveTriggerSkill"] = chineseProp.Value.Values<string>();
+          break;
+        case "被动限定类型":
+          chineseConverted["PassiveObjectType"] = ConvertObjetType(chineseProp.Value.Value<string>());
+          break;
+        case "被动限定关系":
+          chineseConverted["PassiveType"] = ConvertLimitedTargetRelationship(chineseProp.Value.Value<string>());
+          break;
+        case "主动触发技能":
+          chineseConverted["ActivelyTriggerSkills"] = chineseProp.Value.Value<string>();
+          break;
+        case "主动触发间隔":
+          chineseConverted["ActivelyTriggerInterval"] = chineseProp.Value.Value<int>();
+          break;
+        case "主动触发延迟":
+          chineseConverted["ActivelyTriggerDelay"] = chineseProp.Value.Value<int>();
+          break;
+        default:
+          throw new ApplicationException();
+      }
+    }
+
+    var mir3dModel = mir3DbModels.FirstOrDefault(x => x.Value<int>("Id") == chineseModel.Value<int>("陷阱编号"));
+
+    var name = chineseConverted["Name"];
+    var id = chineseConverted["Id"];
+    var fileName = $"{id}-{name}.txt";
 
     var mir3dOutputPath = Path.Combine(mir3DbFolder, fileName);
 
@@ -948,7 +1055,7 @@ Dictionary<string, object> ConvertSkillNode(JObject obj)
         output.Add("角色ItSelf位移", prop.Value.Value<bool>());
         break;
       case "推动增加经验":
-        output.Add("DisplacementIncreaseExp", prop.Value.Value<bool>());
+        output.Add("BoostSkillExp", prop.Value.Value<bool>());
         break;
       case "所需铭文编号":
         output.Add("所需Id", prop.Value.Value<int>());
@@ -1084,7 +1191,7 @@ Dictionary<string, object> ConvertSkillNode(JObject obj)
         output.Add(prop.Key, prop.Value.Value<bool>());
         break;
       case "成功Buff编号":
-        output.Add("成功Id", prop.Value.Value<bool>());
+        output.Add("成功Id", prop.Value.Value<int>());
         break;
       case "位移增加经验":
         output.Add("DisplacementIncreaseExp", prop.Value.Value<bool>());
@@ -1941,5 +2048,6 @@ string ConvertEffect(string chinese)
 DumpBuffs();
 DumpSkillsData();
 DumpSkillInscriptions();
+// DumpTrap();
 DumpCommonItems();
 DumpMonsters();
