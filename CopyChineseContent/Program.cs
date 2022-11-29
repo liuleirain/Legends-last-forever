@@ -90,7 +90,7 @@ void DumpBuffs()
           chineseConverted["DamageBase"] = chineseProp.Value.Values<int>().ToList();
           break;
         case "Buff伤害系数":
-          chineseConverted["DamageFactor"] = chineseProp.Value.Values<int>().ToList();
+          chineseConverted["DamageFactor"] = chineseProp.Value.Values<float>().ToList();
           break;
         case "特定技能编号":
           chineseConverted["SpecificSkillId"] = chineseProp.Value.Values<int>().ToList();
@@ -287,6 +287,9 @@ void DumpSkillsData()
         case "检查硬直状态":
           chineseConverted["CheckStiff"] = chineseProp.Value.Value<bool>();
           break;
+        case "检查技能铭文":
+          chineseConverted["CheckSkillInscriptions"] = chineseProp.Value.Value<bool>();
+          break;
         case "角色Buff层数":
           chineseConverted["PlayerBuffLayer"] = chineseProp.Value.Value<int>();
           break;
@@ -342,6 +345,7 @@ void DumpSkillsData()
           chineseConverted["NeedMoveForward"] = chineseProp.Value.Value<bool>();
           break;
         default:
+          System.Console.WriteLine("key:{0}, value: {1}", chineseProp.Key, chineseProp.Value.GetType());
           throw new ApplicationException();
       }
     }
@@ -462,6 +466,7 @@ void DumpSkillInscriptions()
         case "角色所处状态": // field not exists, ignore.
           break;
         default:
+          System.Console.WriteLine("key:{0}, value: {1}", chineseProp.Key, chineseProp.Value);
           throw new ApplicationException();
       }
     }
@@ -671,6 +676,9 @@ void DumpCommonItems()
         case "是否绑定":
           chineseConverted["IsBound"] = chineseProp.Value.Value<bool>();
           break;
+        case "能否分解":
+          chineseConverted[chineseProp.Key] = chineseProp.Value.Value<bool>();
+          break;
         case "宝盒物品":
           chineseConverted["TreasureItems"] = chineseProp.Value.Values<JObject>().Select(x => ConvertTreasureItem(x)).ToArray();
           break;
@@ -692,6 +700,7 @@ void DumpCommonItems()
         case "传送地图编号": // ignore field not found
           break;
         default:
+          System.Console.WriteLine("key:{0}, value: {1}", chineseProp.Key, chineseProp.Value.GetType());
           throw new ApplicationException();
       }
     }
@@ -827,6 +836,9 @@ void DumpMonsters()
         case "死亡释放技能":
           chineseConverted["DeathReleaseSkill"] = chineseProp.Value.Value<string>();
           break;
+        case "随机触发技能":
+          chineseConverted[chineseProp.Key] = chineseProp.Value.Value<string>().ToArray();
+          break;
         case "脱战自动石化":
           chineseConverted["OutWarAutomaticPetrochemical"] = chineseProp.Value.Value<bool>();
           break;
@@ -834,6 +846,7 @@ void DumpMonsters()
           chineseConverted["PetrochemicalStatusId"] = chineseProp.Value.Value<int>();
           break;
         case "怪物禁止移动":
+        case "ForbbidenMove":
           chineseConverted["ForbbidenMove"] = chineseProp.Value.Value<bool>();
           break;
         case "怪物体型":
@@ -842,6 +855,7 @@ void DumpMonsters()
         case "可被技能召唤": // ignore not use...
           break;
         default:
+          System.Console.WriteLine("key:{0}, value: {1}", chineseProp.Key, chineseProp.Value.GetType());
           throw new ApplicationException();
       }
     }
@@ -948,15 +962,18 @@ Dictionary<string, object> ConvertTreasureItem(JObject obj)
     switch (prop.Key)
     {
       case "物品名":
+      case "物品名字":
         output.Add("ItemName", prop.Value.Value<string>());
         break;
       case "职业":
+      case "需要职业":
         output.Add("NeedRace", ConvertObjectRace(prop.Value.Value<string>()));
         break;
       case "概率":
         output.Add("Rate", prop.Value.Value<int>());
         break;
       default:
+        System.Console.WriteLine("key:{0}, value: {1}", prop.Key, prop.Value);
         throw new ApplicationException();
     }
   }
@@ -1074,6 +1091,7 @@ Dictionary<string, object> ConvertSkillNode(JObject obj)
         break;
       case "基础诱惑数量":
       case "初始宠物等级":
+      case "命中反馈限定类型":
         output.Add(prop.Key, prop.Value.Value<string>());
         break;
       case "点爆需要层数":
@@ -1133,6 +1151,8 @@ Dictionary<string, object> ConvertSkillNode(JObject obj)
       case "技能伤害基数":
       case "体力回复次数":
       case "立即回复基数":
+      case "魔法叠加次数":
+      case "魔法叠加基数":
         output.Add(prop.Key, prop.Value.Values<int>().ToArray());
         break;
       case "目标位移距离":
@@ -1188,6 +1208,7 @@ Dictionary<string, object> ConvertSkillNode(JObject obj)
       case "计算当前位置":
       case "计算当前方向":
       case "检查铭文技能":
+      case "命中反馈回复":
         output.Add(prop.Key, prop.Value.Value<bool>());
         break;
       case "成功Buff编号":
@@ -1262,6 +1283,7 @@ Dictionary<string, object> ConvertSkillNode(JObject obj)
         output.Add("Companion", prop.Value.Value<bool>());
         break;
       default:
+        System.Console.WriteLine("key:{0}, value: {1}", prop.Key, prop.Value.GetType());
         throw new ApplicationException();
     }
   }
@@ -1319,7 +1341,20 @@ Dictionary<string, object> ConvertItemProps(JObject obj)
       case "地图编号":
         output.Add("MapId", prop.Value.Value<int>());
         break;
+      case "PK值惩罚":
+        output.Add(prop.Key, prop.Value.Value<int>());
+        break;
+      case "怪物编号":
+        output.Add(prop.Key, prop.Value.Value<int>());
+        break;
+      case "经验概率":
+        output.Add(prop.Key, prop.Value.Value<int>());
+        break;
+      case "经验数量":
+        output.Add(prop.Key, prop.Value.Value<int>());
+        break;
       default:
+        System.Console.WriteLine("key:{0}, value: {1}", prop.Key, prop.Value.GetType());
         throw new ApplicationException();
     }
   }
@@ -1691,6 +1726,8 @@ string ConvertObjectSize(string chinese)
       return "Spiral7x7";
     case "前方3x1":
       return "Front3x1";
+    case "叉型3x3":
+      return "Fork3x3";
     case "线型1x2":
       return "LineType1x2";
     case "线型1x5":
@@ -1732,6 +1769,10 @@ string ConvertSkillEvasion(string chinese)
       return "CanBeMagicEvaded";
     case "可被中毒闪避":
       return "CanBePoisonEvaded";
+    case "技能无法闪避":
+      return "SkillCannotBeEvaded";
+    case "非怪物可闪避":
+      return "NonMonstersCanEvaded";
     default:
       throw new ApplicationException();
   }
@@ -1850,26 +1891,32 @@ string ConvertObjectState(string chinese)
   {
     switch (value)
     {
-      case "麻痹状态":
-        return "Paralyzed";
-      case "潜行状态":
-        return "StealthStatus";
-      case "残废状态":
-        return "Disabled";
-      case "暴露状态":
-        return "Exposed";
-      case "失神状态":
-        return "Absence";
-      case "无敌状态":
-        return "Invencible";
-      case "中毒状态":
-        return "Poisoned";
-      case "隐身状态":
-        return "Invisibility";
-      case "定身状态":
-        return "Inmobilized";
       case "正常状态":
         return "Normal";
+      case "硬直状态":
+        return "Stiff";
+      case "中毒状态":
+        return "Poisoned";
+      case "残废状态":
+        return "Disabled";
+      case "定身状态":
+        return "Inmobilized";
+      case "麻痹状态":
+        return "Paralyzed";
+      case "霸体状态":
+        return "Hegemony";
+      case "无敌状态":
+        return "Invencible";
+      case "隐身状态":
+        return "Invisibility";
+      case "潜行状态":
+        return "StealthStatus";
+      case "失神状态":
+        return "Absence";
+      case "暴露状态":
+        return "Exposed";
+      case "坐骑状态":
+        return "Riding";
       default:
         throw new ApplicationException();
     }
@@ -1933,6 +1980,7 @@ string ConvertStat(string chinese)
     case "最大圣伤":
       return "MaxHC";
     case "幸运等级":
+    case "幸运":
       return "Luck";
     case "体力恢复":
     case "怪物伤害":
@@ -1940,6 +1988,7 @@ string ConvertStat(string chinese)
     case "中毒躲避":
       return chinese; // unstranslated into server
     default:
+      System.Console.WriteLine("value: {0}", chinese);
       throw new ApplicationException();
   }
 }
