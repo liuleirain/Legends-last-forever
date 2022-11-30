@@ -344,6 +344,12 @@ void DumpSkillsData()
         case "需要正向走位":
           chineseConverted["NeedMoveForward"] = chineseProp.Value.Value<bool>();
           break;
+        case "自动装配":
+          chineseConverted[chineseProp.Key] = chineseProp.Value.Value<bool>();
+          break;
+        case "友方技能编号":
+          chineseConverted[chineseProp.Key] = chineseProp.Value.Value<int>();
+          break;
         default:
           System.Console.WriteLine("key:{0}, value: {1}", chineseProp.Key, chineseProp.Value.GetType());
           throw new ApplicationException();
@@ -1229,6 +1235,9 @@ Dictionary<string, object> ConvertSkillNode(JObject obj)
       case "伴生Buff编号":
         output.Add("伴生Id", prop.Value.Value<int>());
         break;
+      case "陷阱间距":
+        output.Add(prop.Key, prop.Value.Value<int>());
+        break;
       case "触发陷阱技能":
         output.Add("TriggerTrapSkills", prop.Value.Value<string>());
         break;
@@ -1268,6 +1277,7 @@ Dictionary<string, object> ConvertSkillNode(JObject obj)
         output.Add("PetName", prop.Value.Value<string>());
         break;
       case "召唤宠物数量":
+      case "召唤怪物数量":
         output.Add("SpawnCount", prop.Value.Value<string>());
         break;
       case "宠物等级上限":
@@ -1351,6 +1361,9 @@ Dictionary<string, object> ConvertItemProps(JObject obj)
         output.Add(prop.Key, prop.Value.Value<int>());
         break;
       case "经验数量":
+        output.Add(prop.Key, prop.Value.Value<int>());
+        break;
+      case "银币数量":
         output.Add(prop.Key, prop.Value.Value<int>());
         break;
       default:
