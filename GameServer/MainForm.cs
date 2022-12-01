@@ -989,12 +989,9 @@ namespace GameServer
 
     private void 停止服务器_Click(object sender, EventArgs e)
     {
-<<<<<<< HEAD
       GameDataGateway.SaveData();
       GameDataGateway.PersistData();
       GameDataGateway.CleanUp();
-=======
->>>>>>> b8278a9e404d2ffa61853b48378c59c0987050bd
       foreach (SConnection connection in NetworkServiceGateway.Connections)
       {
         try

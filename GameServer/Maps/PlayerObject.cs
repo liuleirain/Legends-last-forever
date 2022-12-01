@@ -7190,7 +7190,7 @@ namespace GameServer.Maps
                   });
                   return;
                 }
-                else if (this.Team.Members.Count < 4)
+                else if (this.Team.Members.Count < 2)
                 {
                   this.对话页面 = 624207000;
                   SConnection 网络连接116 = this.ActiveConnection;
@@ -8033,31 +8033,31 @@ namespace GameServer.Maps
                   if (选项编号 == 1)
                   {
                     num48 = 45;
-                    num49 = 100;
+                    num49 = 10000;
                     num50 = 133;
                   }
                   else if (选项编号 == 2)
                   {
                     num48 = 45;
-                    num49 = 100;
+                    num49 = 10000;
                     num50 = 124;
                   }
                   else if (选项编号 == 3)
                   {
                     num48 = 45;
-                    num49 = 100;
+                    num49 = 10000;
                     num50 = 110;
                   }
                   else if (选项编号 == 4)
                   {
                     num48 = 45;
-                    num49 = 100;
+                    num49 = 10000;
                     num50 = 115;
                   }
                   else if (选项编号 == 5)
                   {
                     num48 = 45;
-                    num49 = 150;
+                    num49 = 15000;
                     num50 = 119;
                   }
                   else
@@ -8067,7 +8067,7 @@ namespace GameServer.Maps
                       return;
                     }
                     num48 = 45;
-                    num49 = 200;
+                    num49 = 20000;
                     num50 = 126;
                   }
                   if ((int)this.CurrentLevel < num48)
