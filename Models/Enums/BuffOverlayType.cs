@@ -4,9 +4,9 @@ namespace GameServer.Templates
 {
   public enum BuffOverlayType
   {
-    SuperpositionDisabled, //叠加禁用
-    SimilarReplacement, //类似的替换
-    HomogeneousStacking, //均匀堆积
-    SimilarDelay  //类似的延迟
+    SuperpositionDisabled, //禁止叠加
+    SimilarReplacement, //同类替换
+    HomogeneousStacking, //同类叠加
+    SimilarDelay  //同类延时
   }
 }
