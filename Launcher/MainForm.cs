@@ -148,7 +148,7 @@ namespace Launcher
                         TrayHideToTaskBar(null, null);
                         UILock();
                         InterfaceUpdateTimer.Enabled = false;
-                        minimizeToTray.ShowBalloonTip(1000, "", "Game Loading Please Wait. . .", ToolTipIcon.Info);
+                        minimizeToTray.ShowBalloonTip(1000, "", "游戏加载请等待. . .", ToolTipIcon.Info);
                     }
                     break;
                 case "7":
@@ -224,22 +224,22 @@ namespace Launcher
         {
             if (AccountTextBox.Text.Length <= 0)
             {
-                login_error_label.Text = "Account Name Cannot Be Empty";
+                login_error_label.Text = "帐户名称不能为空";
                 login_error_label.Visible = true;
             }
             else if (AccountTextBox.Text.IndexOf(' ') >= 0)
             {
-                login_error_label.Text = "Account Name Cannot Contain Spaces";
+                login_error_label.Text = "帐户名称不能包含空格";
                 login_error_label.Visible = true;
             }
             else if (AccountPasswordTextBox.Text.Length <= 0)
             {
-                login_error_label.Text = "Password Cannot Be Blank";
+                login_error_label.Text = "密码不能为空";
                 login_error_label.Visible = true;
             }
             else if (AccountTextBox.Text.IndexOf(' ') >= 0)
             {
-                login_error_label.Text = "Password Cannot Contain Spaces";
+                login_error_label.Text = "密码不能包含空格";
                 login_error_label.Visible = true;
             }
             else
@@ -299,72 +299,72 @@ namespace Launcher
         {
             if (Register_AccountNameTextBox.Text.Length <= 0)
             {
-                RegistrationErrorLabel.Text = "Account Name Cannot Be Empty";
+                RegistrationErrorLabel.Text = "帐户名称不能为空";
                 RegistrationErrorLabel.Visible = true;
             }
             else if (Register_AccountNameTextBox.Text.IndexOf(' ') >= 0)
             {
-                RegistrationErrorLabel.Text = "Account Name Cannot Contain Spaces";
+                RegistrationErrorLabel.Text = "帐户名称不能包含空格";
                 RegistrationErrorLabel.Visible = true;
             }
             else if (Register_AccountNameTextBox.Text.Length <= 5 || Register_AccountNameTextBox.Text.Length > 12)
             {
-                RegistrationErrorLabel.Text = "Account Name Must Be 6 to 12 Characters Long";
+                RegistrationErrorLabel.Text = "帐户名称长度为6 ~ 12个字符";
                 RegistrationErrorLabel.Visible = true;
             }
             else if (!Regex.IsMatch(Register_AccountNameTextBox.Text, "^[a-zA-Z]+.*$"))
             {
-                RegistrationErrorLabel.Text = "Account Name Must Start With A Letter";
+                RegistrationErrorLabel.Text = "帐户名称必须以字母开头";
                 RegistrationErrorLabel.Visible = true;
             }
             else if (!Regex.IsMatch(Register_AccountNameTextBox.Text, "^[a-zA-Z_][A-Za-z0-9_]*$"))
             {
-                RegistrationErrorLabel.Text = "Account Name Can Only Contain Alphanumeric and Underscores";
+                RegistrationErrorLabel.Text = "帐户名称只能包含字母、数字和下划线";
                 RegistrationErrorLabel.Visible = true;
             }
             else if (Register_PasswordTextBox.Text.Length <= 0)
             {
-                RegistrationErrorLabel.Text = "Password Cannot Be Blank";
+                RegistrationErrorLabel.Text = "密码不能为空";
                 RegistrationErrorLabel.Visible = true;
             }
             else if (Register_PasswordTextBox.Text.IndexOf(' ') >= 0)
             {
-                RegistrationErrorLabel.Text = "Password Cannot Contain Spaces";
+                RegistrationErrorLabel.Text = "密码不能包含空格";
                 RegistrationErrorLabel.Visible = true;
             }
             else if (Register_PasswordTextBox.Text.Length <= 5 || Register_PasswordTextBox.Text.Length > 18)
             {
-                RegistrationErrorLabel.Text = "Password Must Be 6 to 18 Characters Long";
+                RegistrationErrorLabel.Text = "密码长度为6 ~ 18个字符";
                 RegistrationErrorLabel.Visible = true;
             }
             else if (Register_QuestionTextBox.Text.Length <= 0)
             {
-                RegistrationErrorLabel.Text = "Security Question Cannot Be Empty";
+                RegistrationErrorLabel.Text = "安全问题不能是空的";
                 RegistrationErrorLabel.Visible = true;
             }
             else if (Register_QuestionTextBox.Text.IndexOf(' ') >= 0)
             {
-                RegistrationErrorLabel.Text = "Security Question Cannot Contain Spaces";
+                RegistrationErrorLabel.Text = "安全问题不能包含空格";
                 RegistrationErrorLabel.Visible = true;
             }
             else if (Register_QuestionTextBox.Text.Length <= 1 || Register_QuestionTextBox.Text.Length > 18)
             {
-                RegistrationErrorLabel.Text = "Security Question Must Be 2 to 18 Characters Long";
+                RegistrationErrorLabel.Text = "安全问题长度为2 ~ 18个字符";
                 RegistrationErrorLabel.Visible = true;
             }
             else if (Register_SecretAnswerTextBox.Text.Length <= 0)
             {
-                RegistrationErrorLabel.Text = "Security Answer Cannot Be Empty";
+                RegistrationErrorLabel.Text = "安全回答不能是空的";
                 RegistrationErrorLabel.Visible = true;
             }
             else if (Register_SecretAnswerTextBox.Text.IndexOf(' ') >= 0)
             {
-                RegistrationErrorLabel.Text = "Security Answer Cannot Contain Spaces";
+                RegistrationErrorLabel.Text = "安全回答不能包含空格";
                 RegistrationErrorLabel.Visible = true;
             }
             else if (Register_SecretAnswerTextBox.Text.Length <= 1 || Register_SecretAnswerTextBox.Text.Length > 18)
             {
-                RegistrationErrorLabel.Text = "Security Answer Must Be 2 to 18 Characters Long";
+                RegistrationErrorLabel.Text = "安全答案长度为2 ~ 18个字符";
                 RegistrationErrorLabel.Visible = true;
             }
             else
@@ -380,47 +380,47 @@ namespace Launcher
         {
             if (Modify_AccountNameTextBox.Text.Length <= 0)
             {
-                Modify_ErrorLabel.Text = "Account Name Cannot Be Empty";
+                Modify_ErrorLabel.Text = "帐户名称不能为空";
                 Modify_ErrorLabel.Visible = true;
             }
             else if (Modify_AccountNameTextBox.Text.IndexOf(' ') >= 0)
             {
-                Modify_ErrorLabel.Text = "Account Name Cannot Contain Spaces";
+                Modify_ErrorLabel.Text = "帐户名称不能包含空格";
                 Modify_ErrorLabel.Visible = true;
             }
             else if (Modify_PasswordTextBox.Text.Length <= 0)
             {
-                Modify_ErrorLabel.Text = "Password Cannot Be Empty";
+                Modify_ErrorLabel.Text = "密码不能为空";
                 Modify_ErrorLabel.Visible = true;
             }
             else if (Modify_PasswordTextBox.Text.IndexOf(' ') >= 0)
             {
-                Modify_ErrorLabel.Text = "Password Cannot Contain Spaces";
+                Modify_ErrorLabel.Text = "密码不能包含空格";
                 Modify_ErrorLabel.Visible = true;
             }
             else if (Modify_PasswordTextBox.Text.Length <= 5 || Modify_PasswordTextBox.Text.Length > 18)
             {
-                Modify_ErrorLabel.Text = "Password Must Be 6 to 18 Characters Long";
+                Modify_ErrorLabel.Text = "密码长度为6 ~ 18个字符";
                 Modify_ErrorLabel.Visible = true;
             }
             else if (Modify_QuestionTextBox.Text.Length <= 0)
             {
-                Modify_ErrorLabel.Text = "Security Question Cannot Be Empty";
+                Modify_ErrorLabel.Text = "安全问题不能是空的";
                 Modify_ErrorLabel.Visible = true;
             }
             else if (Modify_QuestionTextBox.Text.IndexOf(' ') >= 0)
             {
-                Modify_ErrorLabel.Text = "Security Question Cannot Contain Spaces";
+                Modify_ErrorLabel.Text = "安全问题不能包含空格";
                 Modify_ErrorLabel.Visible = true;
             }
             else if (Modify_AnswerTextBox.Text.Length <= 0)
             {
-                Modify_ErrorLabel.Text = "Security Answer Cannot Be Empty";
+                Modify_ErrorLabel.Text = "安全回答不能是空的";
                 Modify_ErrorLabel.Visible = true;
             }
             else if (Modify_AnswerTextBox.Text.IndexOf(' ') >= 0)
             {
-                Modify_ErrorLabel.Text = "Security Answer Cannot Contain Spaces";
+                Modify_ErrorLabel.Text = "安全回答不能包含空格";
                 Modify_ErrorLabel.Visible = true;
             }
             else
@@ -506,6 +506,16 @@ namespace Launcher
         private void uiCheckBox2_CheckedChanged(object sender, EventArgs e)
         {
             uiCheckBox1.Checked = !uiCheckBox2.Checked;
+        }
+
+        private void AccountLoginTab_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -16,7 +16,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <AssemblyName>Mir3DLauncher</AssemblyName>
+    <AssemblyName>登录器</AssemblyName>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
   </PropertyGroup>
   <ItemGroup>
